@@ -1,49 +1,67 @@
 const Ship = require("./ship");
 
+class Tile {
+	constructor() {
+		this.attacked = false;
+		this.ship = null;
+	}
+}
+
 class Gameboard {
 	constructor() {
-		this.board = new Array(5).fill(null);
-		for (let index = 0; index < this.board.length; index++) {
-			this.board[index] = new Array(5).fill(null);
+		this.board = [];
+		for (let i = 0; i < 5; i++) {
+			const row = [];
+			for (let j = 0; j < 5; j++) {
+				row.push(new Tile());
+			}
+			this.board.push(row);
 		}
+		this.missedAttack = 0;
 	}
 
-	placeShip(x, y, dir) {
-		let ship = new Ship(2); // idk how i should refactor this. maybe pass the ship into the function not sure yet..
+	placeShip(x, y, dir, size) {
+		let ship = new Ship(size); // idk how i should refactor this. maybe pass the ship into the function not sure yet..
 		if (dir) {
-			if (x > this.board.length) {
+			// Horizontal
+			if (x >= this.board.length || y + size > this.board.length) {
 				throw new Error("attemping to place ship off the board");
 			}
-			if (ship.length + y > this.board.length) {
-				throw new Error("attemping to place ship off the board");
-			}
-			for (let row = 0; row < this.board.length; row++) {
-				for (let col = 0; col < this.board.length; col++) {
-					if (row == x && y <= col && ship.length + y > col) {
-						this.board[row][col] = "ship";
-					}
-				}
+			for (let i = 0; i < size; i++) {
+				this.board[x][y + i].ship = ship;
 			}
 		} else {
-			if (y > this.board.length) {
+			// Vertical
+			if (y >= this.board.length || x + size > this.board.length) {
 				throw new Error("attemping to place ship off the board");
 			}
-			if (ship.length + x > this.board.length) {
-				throw new Error("attemping to place ship off the board");
-			}
-			for (let row = 0; row < this.board.length; row++) {
-				for (let col = 0; col < this.board.length; col++) {
-					if (row == y && x <= col && ship.length + x > col) {
-						this.board[col][row] = "ship";
-					}
-				}
+			for (let i = 0; i < size; i++) {
+				this.board[x + i][y].ship = ship;
 			}
 		}
 	}
 	printboard() {
-		for (let row = 0; row < this.board.length; row++) {
-			console.log(this.board[row]);
+		this.board.forEach((row) => {
+			console.log(row.map((tile) => (tile.ship ? "S" : ".")).join(" "));
+		});
+	}
+
+	receiveAttack(x, y) {
+		if (x >= 0 && x < this.board.length && y >= 0 && y < this.board.length) {
+			if (this.board[x][y].ship instanceof Ship) {
+				this.board[x][y].ship.hit();
+				this.board[x][y].attacked = true;
+			} else {
+				this.missedAttack++;
+				this.board[x][y].attacked = true;
+			}
 		}
 	}
 }
+let gameboard = new Gameboard();
+gameboard.placeShip(0, 3, false, 2);
+// gameboard.receiveAttack(0, 4);
+// gameboard.receiveAttack(1, 4);
+gameboard.printboard();
+
 module.exports = Gameboard;

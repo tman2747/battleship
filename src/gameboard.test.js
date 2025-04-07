@@ -1,4 +1,5 @@
 const Gameboard = require("./gameboard");
+const Ship = require("./ship");
 
 describe("import test", () => {
 	test("should ", () => {
@@ -10,31 +11,41 @@ describe("Gameboard Tests", () => {
 	test("places ship horizontally", () => {
 		let gameboard;
 		gameboard = new Gameboard();
-		gameboard.placeShip(0, 0, true);
-		expect(gameboard.board[0][0]).toBe("ship");
-		expect(gameboard.board[0][1]).toBe("ship");
+		gameboard.placeShip(0, 0, true, 2);
+		expect(gameboard.board[0][0].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[0][1].ship).toBeInstanceOf(Ship);
 	});
 
 	test("places ship vertically", () => {
 		let gameboard;
 		gameboard = new Gameboard();
-		gameboard.placeShip(0, 0, false);
-		expect(gameboard.board[0][0]).toBe("ship");
-		expect(gameboard.board[1][0]).toBe("ship");
+		gameboard.placeShip(0, 0, false, 2);
+		expect(gameboard.board[0][0].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[1][0].ship).toBeInstanceOf(Ship);
 	});
 
 	test("throws error when ship placed off board horizontally", () => {
 		let gameboard;
 		gameboard = new Gameboard();
 		expect(() => {
-			gameboard.placeShip(0, 9, true);
+			gameboard.placeShip(0, 9, true, 2);
 		}).toThrow("attemping to place ship off the board");
 	});
-	test("throws error when ship placed off board horizontally", () => {
+	test("throws error when ship placed off board vertically", () => {
 		let gameboard;
 		gameboard = new Gameboard();
 		expect(() => {
-			gameboard.placeShip(0, 9, false);
+			gameboard.placeShip(0, 9, false, 2);
 		}).toThrow("attemping to place ship off the board");
+	});
+
+	test("ship gets hit", () => {
+		let gameboard;
+		gameboard = new Gameboard();
+		gameboard.placeShip(0, 0, false, 2);
+		expect(gameboard.board[0][0].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[1][0].ship).toBeInstanceOf(Ship);
+		gameboard.receiveAttack(0, 0);
+		expect(gameboard.board[0][0].attacked).toBe(true);
 	});
 });
