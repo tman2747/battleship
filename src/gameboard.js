@@ -69,13 +69,5 @@ class Gameboard {
 		return returnValue;
 	}
 }
-let gameboard = new Gameboard();
-gameboard.placeShip(0, 3, false, 2);
-gameboard.receiveAttack(0, 3);
-gameboard.receiveAttack(0, 3);
-
-// gameboard.receiveAttack(1, 4);
-gameboard.printboard();
-console.log(gameboard.allShipsSunk());
 
 module.exports = Gameboard;
