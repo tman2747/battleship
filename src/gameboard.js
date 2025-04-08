@@ -53,9 +53,11 @@ class Gameboard {
 			if (this.board[x][y].ship instanceof Ship) {
 				this.board[x][y].ship.hit();
 				this.board[x][y].attacked = true;
+				return true; // added return true here to see if that'll help when putting it all together
 			} else {
 				this.missedAttack++;
 				this.board[x][y].attacked = true;
+				return false; // added return false here to see if that'll help when putting it all together
 			}
 		}
 	}
