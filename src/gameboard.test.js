@@ -48,4 +48,20 @@ describe("Gameboard Tests", () => {
 		gameboard.receiveAttack(0, 0);
 		expect(gameboard.board[0][0].attacked).toBe(true);
 	});
+
+	test("all ships sunk to be true", () => {
+		let gameboard = new Gameboard();
+		gameboard.placeShip(0, 3, false, 2);
+		gameboard.receiveAttack(0, 3);
+		gameboard.receiveAttack(0, 3);
+		expect(gameboard.allShipsSunk()).toBe(true);
+	});
+	test("all ships sunk to be true", () => {
+		let gameboard = new Gameboard();
+		gameboard.placeShip(0, 3, false, 2);
+		gameboard.placeShip(3, 3, false, 2);
+		gameboard.receiveAttack(0, 3);
+		gameboard.receiveAttack(0, 3);
+		expect(gameboard.allShipsSunk()).toBe(false);
+	});
 });

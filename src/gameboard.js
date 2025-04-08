@@ -18,10 +18,12 @@ class Gameboard {
 			this.board.push(row);
 		}
 		this.missedAttack = 0;
+		this.ships = [];
 	}
 
 	placeShip(x, y, dir, size) {
 		let ship = new Ship(size); // idk how i should refactor this. maybe pass the ship into the function not sure yet..
+		this.ships.push(ship);
 		if (dir) {
 			// Horizontal
 			if (x >= this.board.length || y + size > this.board.length) {
@@ -57,11 +59,23 @@ class Gameboard {
 			}
 		}
 	}
+	allShipsSunk() {
+		let returnValue = true;
+		this.ships.forEach((element) => {
+			if (!element.isSunk()) {
+				returnValue = false;
+			}
+		});
+		return returnValue;
+	}
 }
 let gameboard = new Gameboard();
 gameboard.placeShip(0, 3, false, 2);
-// gameboard.receiveAttack(0, 4);
+gameboard.receiveAttack(0, 3);
+gameboard.receiveAttack(0, 3);
+
 // gameboard.receiveAttack(1, 4);
 gameboard.printboard();
+console.log(gameboard.allShipsSunk());
 
 module.exports = Gameboard;
