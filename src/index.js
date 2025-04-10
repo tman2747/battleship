@@ -28,8 +28,7 @@ function makeTiles(player) {
 	gameContainer.appendChild(playerContainer);
 }
 player1.gameboard.placeShip(0, 0, true, 3);
-player2
+player2;
 
 makeTiles(player1);
 makeTiles(player2);
-
