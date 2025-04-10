@@ -25,7 +25,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	background-color: darkcyan;
-	height: 40px;
+	height: 60px;
 }
 .gameContainer {
 	display: flex;
@@ -55,5 +55,5 @@ body {
 	justify-content: center;
 	align-items: center;
 	background-color: darkcyan;
-	height: 20px;
+	height: 40px;
 }
