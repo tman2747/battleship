@@ -30,17 +30,27 @@ function makeTiles(player) {
 	playerContainer.appendChild(playerGrid);
 	gameContainer.appendChild(playerContainer);
 }
-player1.gameboard.placeShip(0, 0, true, 3);
-player1.gameboard.placeShip(2, 2, true, 3);
-
+// player1.gameboard.placeShip(1, 1, true, 3);
+// player1.gameboard.placeShip(1, 0, true, 3);
+placeShips(player1);
 makeTiles(player1);
 makeTiles(player2);
 
 // make function that picks random positions
 
-function placeShips() {
-	amountOfShips = 3;
-	maxLength = 5;
+function placeShips(player) {
+	let amountOfShips = 2;
+	let maxLength = 4;
+	for (let index = 0; index < amountOfShips; index++) {
+		if (!player.gameboard.placeShip(0, 0, true, 3)) {
+			let firstRandom = Math.floor(Math.random() * 4);
+			let secondRandom = Math.floor(Math.random() * 4);
+			while (
+				player.gameboard.placeShip(firstRandom, secondRandom, true, 3)
+			);
+			console.log(firstRandom, secondRandom);
+		}
+	}
 }
 
 // probably need to change my gameboard place ship to insure no other ships

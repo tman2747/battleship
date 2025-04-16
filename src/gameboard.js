@@ -31,12 +31,15 @@ class Gameboard {
 				console.log("attemping to place ship off the board");
 				return false;
 			}
-			for (let i = 0; i < size; i++) {
-				if (this.board[x][y + i].ship != null) {
+			// make sure theres not a ship already in that pos
+			for (let j = 0; j < size; j++) {
+				if (this.board[x][y + j].ship != null) {
 					console.log("theres a ship here");
 					return false;
 				}
-				console.log(this.board[x][y + i].ship);
+			}
+			//place the ship
+			for (let i = 0; i < size; i++) {
 				this.board[x][y + i].ship = ship;
 			}
 			return true;
@@ -46,11 +49,14 @@ class Gameboard {
 				console.log("attemping to place ship off the board");
 				return false;
 			}
-			for (let i = 0; i < size; i++) {
-				if (this.board[x + i][y].ship != null) {
+			// make sure theres not a ship already in that pos
+			for (let j = 0; j < size; j++) {
+				if (this.board[x + j][y].ship != null) {
 					console.log("theres a ship here");
 					return false;
 				}
+			}
+			for (let i = 0; i < size; i++) {
 				this.board[x + i][y].ship = ship;
 			}
 			return true;

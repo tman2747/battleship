@@ -60,4 +60,14 @@ describe("Gameboard Tests", () => {
 		gameboard.receiveAttack(0, 3);
 		expect(gameboard.allShipsSunk()).toBe(false);
 	});
+	test("should ", () => {
+		let gameboard = new Gameboard();
+		gameboard.placeShip(1, 1, true, 3);
+		expect(gameboard.placeShip(1, 0, true, 3)).toBe(false);
+		expect(gameboard.board[1][0].ship).toBe(null);
+		expect(gameboard.board[1][1].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[1][2].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[1][3].ship).toBeInstanceOf(Ship);
+		expect(gameboard.board[1][4].ship).toBe(null);
+	});
 });
