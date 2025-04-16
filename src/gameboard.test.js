@@ -27,16 +27,12 @@ describe("Gameboard Tests", () => {
 	test("throws error when ship placed off board horizontally", () => {
 		let gameboard;
 		gameboard = new Gameboard();
-		expect(() => {
-			gameboard.placeShip(0, 9, true, 2);
-		}).toThrow("attemping to place ship off the board");
+		expect(gameboard.placeShip(0, 9, true, 2)).toBe(false);
 	});
 	test("throws error when ship placed off board vertically", () => {
 		let gameboard;
 		gameboard = new Gameboard();
-		expect(() => {
-			gameboard.placeShip(0, 9, false, 2);
-		}).toThrow("attemping to place ship off the board");
+		expect(gameboard.placeShip(0, 9, false, 2)).toBe(false);
 	});
 
 	test("ship gets hit", () => {

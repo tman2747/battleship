@@ -22,24 +22,38 @@ class Gameboard {
 	}
 
 	placeShip(x, y, dir, size) {
-		let ship = new Ship(size); // idk how i should refactor this. maybe pass the ship into the function not sure yet..
+		let ship = new Ship(size); // TODO idk how i should refactor this. maybe pass the ship into the function not sure yet..
 		this.ships.push(ship);
 		if (dir) {
 			// Horizontal
 			if (x >= this.board.length || y + size > this.board.length) {
-				throw new Error("attemping to place ship off the board");
+				// throw new Error("attemping to place ship off the board");
+				console.log("attemping to place ship off the board");
+				return false;
 			}
 			for (let i = 0; i < size; i++) {
+				if (this.board[x][y + i].ship != null) {
+					console.log("theres a ship here");
+					return false;
+				}
+				console.log(this.board[x][y + i].ship);
 				this.board[x][y + i].ship = ship;
 			}
+			return true;
 		} else {
 			// Vertical
 			if (y >= this.board.length || x + size > this.board.length) {
-				throw new Error("attemping to place ship off the board");
+				console.log("attemping to place ship off the board");
+				return false;
 			}
 			for (let i = 0; i < size; i++) {
+				if (this.board[x + i][y].ship != null) {
+					console.log("theres a ship here");
+					return false;
+				}
 				this.board[x + i][y].ship = ship;
 			}
+			return true;
 		}
 	}
 	printboard() {
@@ -53,11 +67,11 @@ class Gameboard {
 			if (this.board[x][y].ship instanceof Ship) {
 				this.board[x][y].ship.hit();
 				this.board[x][y].attacked = true;
-				return true; // added return true here to see if that'll help when putting it all together
+				return true; // added return true here so you know if attack was successful
 			} else {
 				this.missedAttack++;
 				this.board[x][y].attacked = true;
-				return false; // added return false here to see if that'll help when putting it all together
+				return false; // added return false here so you know if attack was successful
 			}
 		}
 	}
