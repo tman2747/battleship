@@ -27,7 +27,6 @@ class Gameboard {
 		if (dir) {
 			// Horizontal
 			if (x >= this.board.length || y + size > this.board.length) {
-				// throw new Error("attemping to place ship off the board");
 				console.log("attemping to place ship off the board");
 				return false;
 			}

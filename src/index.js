@@ -39,15 +39,30 @@ makeTiles(player2);
 // make function that picks random positions
 
 function placeShips(player) {
-	let amountOfShips = 2;
+	let amountOfShips = 5;
 	let maxLength = 4;
 	for (let index = 0; index < amountOfShips; index++) {
-		if (!player.gameboard.placeShip(0, 0, true, 3)) {
-			let firstRandom = Math.floor(Math.random() * 4);
-			let secondRandom = Math.floor(Math.random() * 4);
-			while (
-				player.gameboard.placeShip(firstRandom, secondRandom, true, 3)
-			);
+		// add length to get rid of magic number
+		let firstRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
+		let secondRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
+		let placed = player.gameboard.placeShip(
+			firstRandom,
+			secondRandom,
+			true,
+			3,
+		);
+		if (!placed) {
+			let placedsuc = false;
+			while (!placedsuc) {
+				let firstRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
+				let secondRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
+				placedsuc = player.gameboard.placeShip(
+					firstRandom,
+					secondRandom,
+					true,
+					3, // TODO add length to get rid of magic number
+				);
+			}
 			console.log(firstRandom, secondRandom);
 		}
 	}
