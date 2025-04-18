@@ -68,22 +68,31 @@ function placeShips(player) {
 	}
 }
 
-let storedPostions = [];
-
 // this can work for calling attacks and placing ships randomly
-function pickRandomPos() {
+
+// might want to add this to game board class or player class to we can use
+// stored postion as a member var
+function pickRandomPos(storedPostions) {
+	let x, y;
+
+	if (storedPostions == undefined) {
+		x = Math.floor(Math.random() * 5);
+		y = Math.floor(Math.random() * 5);
+		return [x, y];
+	}
 	if (storedPostions.length >= 25) {
 		console.log("All positions taken");
 		return null;
 	}
 
-	let x, y;
 	do {
 		x = Math.floor(Math.random() * 5);
 		y = Math.floor(Math.random() * 5);
 	} while (storedPostions.some((pos) => pos[0] === x && pos[1] === y));
 
 	storedPostions.push([x, y]);
-	console.log("Picked:", x, y);
 	return [x, y];
 }
+
+let storedPostions = [];
+pickRandomPos(storedPostions);
