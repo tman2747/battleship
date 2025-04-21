@@ -7,6 +7,10 @@ const player1 = new Player();
 const player2 = new Player();
 
 const gameContainer = document.querySelector(".gameContainer");
+const shuffleButton = document.querySelector(".shuffle");
+shuffleButton.addEventListener("click", () => {
+	shuffle();
+});
 
 function makeTiles(player) {
 	let playerContainer = document.createElement("div");
@@ -17,13 +21,16 @@ function makeTiles(player) {
 		element.forEach((element) => {
 			let tile = document.createElement("div");
 			tile.classList.add("tile");
-			if (element.ship != null) {
-				console.log(element);
-				tile.innerHTML = "[]";
+			if (player.showShip == true && element.ship) {
+				tile.innerHTML = "X";
 			}
-			// tile.addEventListener("click", () => {
-			// 	tile.style.background = "red";
-			// }); // add something like this so when the ship gets hit it selects the correct color and displays it
+			tile.addEventListener("click", () => {
+				if (element.ship != null) {
+					tile.style.background = "green";
+				} else {
+					tile.style.background = "red";
+				}
+			});
 			playerGrid.appendChild(tile);
 		});
 	});
@@ -32,11 +39,12 @@ function makeTiles(player) {
 }
 // player1.gameboard.placeShip(1, 1, true, 3);
 // player1.gameboard.placeShip(1, 0, true, 3);
+player1.showShip = true;
 placeShips(player1);
+placeShips(player2);
 makeTiles(player1);
 makeTiles(player2);
 
-// make function that picks random positions
 
 function placeShips(player) {
 	let amountOfShips = 5;
@@ -63,7 +71,6 @@ function placeShips(player) {
 					3, // TODO add length to get rid of magic number
 				);
 			}
-			console.log(firstRandom, secondRandom);
 		}
 	}
 }

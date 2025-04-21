@@ -31,9 +31,15 @@ body {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
-	flex: 1; /* to push footer to the bottom*/
 }
-
+.shuffle {
+	height: 30px;
+}
+.shuffleContainer {
+	display: flex;
+	justify-content: center;
+	flex: 1;
+}
 .playerGrid {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
