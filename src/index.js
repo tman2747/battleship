@@ -24,6 +24,11 @@ function makeTiles(player) {
 			if (player.showShip == true && element.ship) {
 				tile.innerHTML = "X";
 			}
+			else if(element.ship)
+			{
+				tile.innerHTML = "X";
+
+			}
 			tile.addEventListener("click", () => {
 				if (element.ship != null) {
 					tile.style.background = "green";
@@ -51,7 +56,7 @@ function shuffle() {
 
 function placeShips(player) {
 	let amountOfShips = 5;
-	let maxLength = 4;
+	let maxLength = 5;
 	for (let index = 0; index < amountOfShips; index++) {
 		// add length to get rid of magic number
 		let firstRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
@@ -60,18 +65,19 @@ function placeShips(player) {
 			firstRandom,
 			secondRandom,
 			true,
-			3,
+			4,
 		);
 		if (!placed) {
 			let placedsuc = false;
 			while (!placedsuc) {
 				let firstRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
 				let secondRandom = Math.floor(Math.random() * 5); // TODO add gameboard width and height to get rid of magic number
+				let length = Math.floor(Math.random() * maxLength + 1); // TODO totally rewrite this
 				placedsuc = player.gameboard.placeShip(
 					firstRandom,
 					secondRandom,
-					true,
-					3, // TODO add length to get rid of magic number
+					false,
+					length, // TODO add length to get rid of magic number
 				);
 			}
 		}
