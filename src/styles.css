@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0px;
 	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
 body {
@@ -26,20 +27,30 @@ body {
 	align-items: center;
 	background-color: darkcyan;
 	height: 60px;
+	font-size: 40px;
 }
 .gameContainer {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
 }
-.shuffle {
-	height: 30px;
-}
 .shuffleContainer {
 	display: flex;
 	justify-content: center;
 	flex: 1;
 }
+.play {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	font-size: 35px;
+}
+.shuffle {
+	height: 30px;
+}
+
 .playerGrid {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);

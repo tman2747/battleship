@@ -3,12 +3,12 @@ import "./styles.css";
 
 const Player = require("./player");
 
-const player1 = new Player();
-const player2 = new Player();
-
 const gameContainer = document.querySelector(".gameContainer");
-const shuffleButton = document.querySelector(".shuffle");
+const shuffleButton = document.querySelector(".play");
 shuffleButton.addEventListener("click", () => {
+	shuffleButton.innerHTML = "shuffle";
+	shuffleButton.classList.remove("play");
+	shuffleButton.classList.add("shuffle");
 	shuffle();
 });
 
@@ -37,14 +37,17 @@ function makeTiles(player) {
 	playerContainer.appendChild(playerGrid);
 	gameContainer.appendChild(playerContainer);
 }
-// player1.gameboard.placeShip(1, 1, true, 3);
-// player1.gameboard.placeShip(1, 0, true, 3);
-player1.showShip = true;
-placeShips(player1);
-placeShips(player2);
-makeTiles(player1);
-makeTiles(player2);
 
+function shuffle() {
+	let player1 = new Player();
+	player1.showShip = true;
+	let player2 = new Player();
+	gameContainer.innerHTML = "";
+	placeShips(player1);
+	placeShips(player2);
+	makeTiles(player1);
+	makeTiles(player2);
+}
 
 function placeShips(player) {
 	let amountOfShips = 5;
