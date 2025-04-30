@@ -4,6 +4,7 @@ class Tile {
 	constructor() {
 		this.attacked = false;
 		this.ship = null;
+		this.domTile = null;
 	}
 }
 
@@ -22,42 +23,41 @@ class Gameboard {
 	}
 
 	placeShip(x, y, dir, size) {
-		let ship = new Ship(size); // TODO idk how i should refactor this. maybe pass the ship into the function not sure yet..
-		this.ships.push(ship);
 		if (dir) {
 			// Horizontal
 			if (x >= this.board.length || y + size > this.board.length) {
-				console.log("attemping to place ship off the board");
+				console.log("attempting to place ship off the board");
 				return false;
 			}
-			// make sure theres not a ship already in that pos
 			for (let j = 0; j < size; j++) {
 				if (this.board[x][y + j].ship != null) {
-					console.log("theres a ship here");
+					console.log("there's a ship here");
 					return false;
 				}
 			}
-			//place the ship
+			let ship = new Ship(size);
 			for (let i = 0; i < size; i++) {
 				this.board[x][y + i].ship = ship;
 			}
+			this.ships.push(ship);
 			return true;
 		} else {
 			// Vertical
 			if (y >= this.board.length || x + size > this.board.length) {
-				console.log("attemping to place ship off the board");
+				console.log("attempting to place ship off the board");
 				return false;
 			}
-			// make sure theres not a ship already in that pos
 			for (let j = 0; j < size; j++) {
 				if (this.board[x + j][y].ship != null) {
-					console.log("theres a ship here");
+					console.log("there's a ship here");
 					return false;
 				}
 			}
+			let ship = new Ship(size);
 			for (let i = 0; i < size; i++) {
 				this.board[x + i][y].ship = ship;
 			}
+			this.ships.push(ship);
 			return true;
 		}
 	}
@@ -72,10 +72,17 @@ class Gameboard {
 			if (this.board[x][y].ship instanceof Ship) {
 				this.board[x][y].ship.hit();
 				this.board[x][y].attacked = true;
+				this.allShipsSunk();
+				if (this.board[x][y].domTile != null) {
+					this.board[x][y].domTile.style.background = "red";
+				}
 				return true; // added return true here so you know if attack was successful
 			} else {
 				this.missedAttack++;
 				this.board[x][y].attacked = true;
+				if (this.board[x][y].domTile != null) {
+					this.board[x][y].domTile.style.background = "gray";
+				}
 				return false; // added return false here so you know if attack was successful
 			}
 		}
