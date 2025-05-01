@@ -7,11 +7,12 @@ let player1 = new Player();
 player1.showShip = true;
 let player2 = new Player();
 let gameover = false;
+const content = document.querySelector(".wrapper");
 
 const gameContainer = document.querySelector(".gameContainer");
 const shuffleButton = document.querySelector(".play");
 shuffleButton.addEventListener("click", () => {
-	shuffleButton.innerHTML = "shuffle";
+	shuffleButton.innerHTML = "Start Over";
 	shuffleButton.classList.remove("play");
 	shuffleButton.classList.add("shuffle");
 
@@ -45,6 +46,9 @@ function makeTiles(player) {
 								console.log("No available positions left");
 							}
 							console.log(player1.gameboard.ships);
+						}
+						if (gameover) {
+							createPopupWindow();
 						}
 					}
 				});
@@ -125,3 +129,64 @@ function pickRandomPos(storedPostions) {
 }
 
 let storedPostions = [];
+
+function setDateInfo(date) {
+	if (date != "") {
+		return date + "T00:00:00";
+	} else {
+		return null;
+	}
+}
+function createPopupWindow() {
+	const popupWindow = document.createElement("div");
+	popupWindow.classList.add("popup-window");
+	popupWindow.addEventListener("click", (event) => {
+		if (event.target == popupWindow) {
+			popupWindow.remove();
+		}
+	});
+
+	const createProjectWindow = document.createElement("div");
+	createProjectWindow.classList.add("create-project-window");
+
+	const closeButton = document.createElement("div");
+	closeButton.classList.add("close");
+	closeButton.innerHTML = "x";
+	closeButton.addEventListener("click", () => {
+		popupWindow.remove();
+	});
+	createProjectWindow.appendChild(closeButton);
+
+	const windowField = document.createElement("div");
+	windowField.classList.add("window-field");
+
+	const form = document.createElement("form");
+
+	const label = document.createElement("label");
+	label.htmlFor = "listName";
+	if (player1.gameboard.allShipsSunk()) {
+		label.innerText = "Player 2 won";
+	} else {
+		label.innerText = "Player 1 won";
+	}
+
+	windowField.appendChild(label);
+
+	const addButton = document.createElement("button");
+	addButton.innerHTML = "Play Again";
+	addButton.type = "button";
+
+	addButton.addEventListener("click", () => {
+		shuffle();
+		popupWindow.remove();
+	});
+
+	form.appendChild(windowField);
+	form.appendChild(addButton);
+
+	createProjectWindow.appendChild(form);
+
+	popupWindow.appendChild(createProjectWindow);
+
+	content.appendChild(popupWindow);
+}

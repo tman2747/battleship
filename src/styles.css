@@ -74,3 +74,57 @@ body {
 	background-color: darkcyan;
 	height: 40px;
 }
+
+.popup-window {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.429);
+    width: 100%;
+    height: 100%;
+
+}
+
+.create-project-window {
+	display: flex;
+    background-color: white;
+    width: 400px;
+    height: 100px;
+flex-direction: column;
+    position: absolute;
+    top: 65px;
+    left: calc(50% - 200px);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.create-project-window>form {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.window-field {
+    display: flex;
+    gap: 10px;
+}
+
+.close {
+    background-color: rgb(216, 216, 216);
+    width: 20px;
+    height: 20px;
+    border-radius: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.close:hover {
+    background-color: rgb(139, 139, 139);
+
+}
